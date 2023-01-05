@@ -47,7 +47,7 @@ def generate_sales_data( directory ):
 
         for product in product_query: 
 
-            random_sales_count = random.randint(10, 100)
+            random_sales_count = random.randint(10, 500)
             sampled_sales = random.sample(sales, random_sales_count)
 
             for sale in sampled_sales: 

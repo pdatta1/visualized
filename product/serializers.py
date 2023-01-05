@@ -29,3 +29,5 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Product
         fields = ('product_name', 'sales')
 
+
+

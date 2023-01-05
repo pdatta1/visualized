@@ -6,6 +6,9 @@ class Product(models.Model):
 
     product_name = models.CharField(max_length=30, null=False)
 
+    def __str__(self):
+        return f'{self.product_name}'
+
 
 class Sales(models.Model): 
 
@@ -13,6 +16,8 @@ class Sales(models.Model):
     purchased_price = models.DecimalField(max_digits=100, decimal_places=2)
 
     objects = SalesManager() 
+
+    
 
 
 

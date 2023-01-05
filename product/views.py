@@ -8,9 +8,9 @@ from rest_framework import status
 
 
 from product.models import Product, Sales
-from product.serializers import ProductSerializer, SalesSerializer
+from product.serializers import ProductSerializer
 
-
+import pandas as pd 
 
 class ProductAPI(ModelViewSet): 
 
@@ -26,8 +26,10 @@ class TotalSalesAPI(ViewSet):
 
     def list(self, request): 
 
-        serialized_data = [] 
-        product_query = Product.objects.all() 
+        serialized_data = list() 
+        sales_df = None
+
+        product_query = Product.objects.prefetch_related('sales')
 
         for product in product_query:
 
@@ -40,8 +42,9 @@ class TotalSalesAPI(ViewSet):
                 'total_price': total_price,
             }
 
+
             serialized_data.append(serializer)
 
-
-        return Response(status=status.HTTP_200_OK, data=serialized_data)
+        sales_df = pd.Series(serialized_data)
+        return Response(status=status.HTTP_200_OK, data=sales_df)
 
